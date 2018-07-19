@@ -1,0 +1,58 @@
+/* common/template-list/index.wxss */
+.scrollList{
+  flex: 2;
+  display: flex;
+  width:100%;
+  height: 100%;
+  padding-left: 20rpx;
+  padding-right:20rpx;
+  padding-bottom: 20rpx;
+  overflow: hidden;
+  background-color: #eee;
+}
+.goods{
+  display: flex;
+  flex-direction: row;
+  border-radius: 20rpx;
+  background-color: white;
+  margin-left: 20rpx;
+  margin-right:20rpx;
+  padding: 20rpx;
+  margin-top: 30rpx;
+}
+.good-left{
+  width:300rpx;
+  height:300rpx;
+}
+.good-right{
+  display: flex;
+  margin-left: 20rpx;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-bottom: 20rpx;
+  overflow: hidden;
+  height: 280rpx;
+}
+.good-des{
+  font-size: 32rpx;
+  overflow: hidden;
+  letter-spacing:2rpx;
+  padding-bottom: 30rpx;
+}
+.good-price{
+  box-sizing: content-box;
+  font-size: 30rpx;
+  text-align: left;
+  overflow: hidden;
+  padding-bottom: 10rpx;
+  color: #E76262;
+  display: inline-block;
+}
+.good-sold{
+  box-sizing: content-box;
+  font-size: 30rpx;
+  text-align: left;
+  overflow: hidden;
+  padding-bottom: 10rpx;
+  display: inline-block;
+}

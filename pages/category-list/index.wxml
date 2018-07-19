@@ -1,0 +1,14 @@
+<!--pages/category-list/index.wxml-->
+<import src="../../common/template-list/index.wxml"/>
+<view class='container'>
+    <view class="type-container">
+        <scroll-view class="type-navbar" scroll-x="true">
+            <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
+                <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
+                    {{item.name}}
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <template is="kind-list" data="{{itemList}}"></template>
+</view>

@@ -1,0 +1,28 @@
+<!--pages/start-up/startUp.wxml-->
+<view class="container">
+  <view class="remind-box" wx:if="{{remind==1}}">
+    <image class="remind-img" src="/images/loading/loading.gif"></image>
+  </view>
+  <block wx:if ="{{remind==2}}">
+    <view class="content">
+      <view class="hd" style="transform:rotateZ({{angle}}deg);">
+        <image class="logo" src="{{userInfo.logo}}"></image>
+        <image class="wave" src="/images/loading/wave.png" mode="aspectFill"></image>
+        <image class="wave wave-bg" src="/images/loading/wave.png" mode="aspectFill"></image>
+      </view>
+      <view class="bd">
+        <view class="confirm-btn" bindtap='goToIndex'>
+          <text >进入店铺</text>
+        </view>
+        <text class="copyright">@melon 贡献本页代码</text>
+      </view>
+    </view>
+  </block>
+  <block wx:if ="{{remind==0}}">
+  <view>
+  <view style='width:100%;padding-left:30rpx;font-size: 28rpx;margin-top:30rpx;'>1、同意当前小程序获取我的微信头像；</view>
+    <view  style='width:100%;padding-left:30rpx;font-size: 28rpx;margin-top:30rpx;'>2、同意当前小程序获取我的微信昵称等其他信息；</view>
+    <button class='auth-btn' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  </view>
+  </block>
+</view>
