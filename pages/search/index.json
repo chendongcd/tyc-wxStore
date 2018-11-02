@@ -1,0 +1,6 @@
+{
+  "usingComponents":{
+    "noContent":"../../common/template-noContent/index"
+  },
+  "enablePullDownRefresh": false
+}

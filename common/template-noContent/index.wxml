@@ -1,0 +1,7 @@
+<!--common/template-noContent/index.wxml-->
+<view class="noContent-container">
+<image class="image" src="../../images/common/noContent.png"/>
+<view class="noContent">
+{{content}}
+</view>
+</view>

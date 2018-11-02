@@ -1,0 +1,52 @@
+<!--pages/search/index.wxml-->
+<import src="../../common/template-list/index.wxml" />
+<view class="search-container" style="height:{{height}}">
+  <view class="search">
+    <view class="inputView">
+      <input bindinput="inputTxt" confirm-type="search" value="{{searchTxt}}" maxlength="20" class="textInput" />
+      <icon bindtap="clearTxt" wx:if="{{searchTxt}}" class="clear-content" type="clear" size="10" color="#333332" />
+    </view>
+    <view bindtap="goBack" class="cancle">
+      取消
+    </view>
+  </view>
+  <view class="type-navbar" scroll-x="true">
+    <view id="type0" class="type-box {{activeType=='type0'?'type-item-on':'type-item'}}" bindtap="tabType">
+      全部
+    </view>
+    <view id="type1" class="type-box {{activeType=='type1'?'type-item-on':'type-item'}}" bindtap="tabType">
+      商品
+    </view>
+    <view id="type2" class="type-box {{activeType=='type2'?'type-item-on':'type-item'}}" bindtap="tabType">
+      店铺
+    </view>
+  </view>
+  <view wx:if="{{type==0}}" class='history'>
+    <view class='his-header'>
+      <text>历史搜索</text>
+      <text wx:if="{{history.length>0}}" bindtap="clearHis">删除</text>
+    </view>
+    <view class='his-content'>
+      <block wx:for="{{history}}" wx:key="id">
+        <view class='his-item'>
+          {{item}}
+        </view>
+      </block>
+    </view>
+  </view>
+  <view wx:if="{{type==0}}" class='hot'>
+    <view class='his-header'>
+      <text>热门推荐</text>
+      <text bindtap="hotControl">{{hotShow?'隐藏':'展开'}}</text>
+    </view>
+    <view wx:if="{{hotShow}}" class='his-content'>
+      <block wx:for="{{hot}}" wx:key="id">
+        <view class='his-item'>
+          {{item}}
+        </view>
+      </block>
+    </view>
+  </view>
+  <template wx:if="{{type==1}}" is="kind-list" data="{{itemList}}"/>
+  <noContent content="未搜索到相关数据"/>
+</view>

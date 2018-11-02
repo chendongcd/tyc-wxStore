@@ -1,0 +1,110 @@
+/* pages/search/index.wxss */
+@import "../../common/template-list/index.wxss";
+.search-container{
+  background-color: #f2f2f2;
+  color:#333332;
+  width:100%;
+  flex:2;
+  display: flex;
+  flex-direction: column;
+}
+.search{
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  height: 80rpx;
+  padding-top: 20rpx;
+}
+.inputView{
+  background-color: white;
+  height: 60rpx;
+  width: 540rpx;
+  border-radius: 30rpx;
+  margin-left: 30rpx;
+  padding-left: 30rpx;
+  padding-right: 50rpx;
+  overflow: hidden;
+  position: relative;
+}
+.textInput{
+  height: 60rpx;
+  overflow: hidden;
+  font-size: 30rpx;
+  color:#333332;
+}
+.clear-content{
+  position: absolute;
+  right: 14rpx;
+  top:20rpx;
+}
+.cancle{
+  height: 50rpx;
+  margin-top: 14rpx;
+  margin-left: 24rpx;
+  font-size: 30rpx;
+}
+.type-navbar{
+  white-space: nowrap;
+  height: 88rpx;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+.type-box{
+  box-sizing: content-box;
+  font-size: 30rpx;
+  line-height: 84rpx;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  width: 33%;
+}
+.type-item{
+  border-bottom: 8rpx solid #f2f2f2;
+  color: #333332;
+}
+.type-item-on{
+  color:#e64340;
+  border-bottom: 8rpx solid #e64340;
+}
+.history{
+  padding: 0;
+  margin-top: 20rpx;
+}
+.his-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 30rpx;
+  padding-right:30rpx;
+  overflow: hidden;
+}
+.his-header text{
+  line-height: 28rpx;
+  font-size: 28rpx;
+  padding: 0;
+}
+.his-content{
+  padding-left: 30rpx;
+  padding-right:30rpx;
+  padding-top: 10rpx;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.his-item{
+  font-size: 28rpx;
+  background-color: #e5e5e4;
+  text-align: center;
+  padding-left: 28rpx;
+  padding-right: 28rpx;
+  border-radius: 28rpx;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+}
+.hot{
+  margin-top: 30rpx;
+}
