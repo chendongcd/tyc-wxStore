@@ -1,74 +1,108 @@
-// pages/me/me.js
 const app = getApp()
-Page({
 
-  /**
-   * 页面的初始数据
-   */
+Page({
   data: {
     balance: 0,
     freeze: 0,
     score: 0,
-    score_sign_continuous: 0,
-    userInfo: null
+    score_sign_continuous: 0
   },
+  onLoad() {
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo
+  },
+  onShow() {
+    let that = this;
+    let userInfo = wx.getStorageSync('userInfo')
+    if (!userInfo) {
+      wx.navigateTo({
+        url: "/pages/authorize/index"
       })
-    } 
+    } else {
+      that.setData({
+        userInfo: userInfo,
+        version: app.globalData.version
+      })
+    }
+    this.getUserApiInfo();
+    this.getUserAmount();
+    this.checkScoreSign();
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  aboutUs: function () {
+    wx.showModal({
+      title: '关于我们',
+      content: '有品精选',
+      showCancel: false
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  getPhoneNumber: function (e) {
+    if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
+      wx.showModal({
+        title: '提示',
+        content: '无法获取手机号码',
+        showCancel: false
+      })
+      return;
+    }
   },
+  getUserApiInfo: function () {
+    var that = this;
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
   },
+  getUserAmount: function () {
+    var that = this;
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
+
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
+  checkScoreSign: function () {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/score/today-signed',
+      data: {
+        token: wx.getStorageSync('token')
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.setData({
+            score_sign_continuous: res.data.data.continuous
+          });
+        }
+      }
+    })
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
+  scoresign: function () {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/score/sign',
+      data: {
+        token: wx.getStorageSync('token')
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.getUserAmount();
+          that.checkScoreSign();
+        } else {
+          wx.showModal({
+            title: '错误',
+            content: res.data.msg,
+            showCancel: false
+          })
+        }
+      }
+    })
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  relogin: function () {
+    wx.navigateTo({
+      url: "/pages/authorize/index"
+    })
+  },
+  recharge: function () {
+    wx.navigateTo({
+      url: "/pages/recharge/index"
+    })
+  },
+  withdraw: function () {
+    wx.navigateTo({
+      url: "/pages/withdraw/index"
+    })
   }
 })

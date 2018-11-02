@@ -1,5 +1,5 @@
 // pages/category/index.js
-import fetch from '../../action/fetch.js'
+import {fetch} from '../../action/fetch.js'
 var app = getApp()
 Page({
 
@@ -37,7 +37,7 @@ Page({
       level:1
     }
     let that = this
-    fetch.request('GET','product/type_list/v1.1',params,that.setKinds)
+    fetch('GET', '/shop/goods/category/all',params,that.setKinds)
   },
   setKinds:function(res){
     var that = this
@@ -55,7 +55,7 @@ Page({
   getTypes: function (typeId) {
     var that = this;
     let params = {productTypeId: typeId, level: 2 }
-    fetch.request('GET', 'product/type_list/v1.1',params,that.setTypes)
+    fetch('GET', '/shop/goods/category/all', '',that.setTypes)
   },
   setTypes:function(res){
     let that = this

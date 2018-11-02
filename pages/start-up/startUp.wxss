@@ -108,7 +108,7 @@ page{
   position: absolute;
   z-index: 2;
   left: 50%;
-  bottom: 200rpx;
+  bottom: 400rpx;
   width: 160rpx;
   height: 160rpx;
   margin-left: -80rpx;

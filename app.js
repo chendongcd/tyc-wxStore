@@ -3,7 +3,6 @@ App({
   onLaunch:function(){
     try{
       this.globalData.deviceInfo = wx.getSystemInfoSync()
-      console.log(this.globalData)
     }catch(error){
       console.log(error)
     }
@@ -15,6 +14,7 @@ App({
     userInfo:null,
     subDomain: "tz",
     mainColor:'#E76262',
-    deviceInfo:{}
+    deviceInfo:{},
+    version:"0.0.1"
   }
 })

@@ -3,10 +3,16 @@
     "pages/start-up/startUp",
     "pages/index/index",
     "pages/me/me",
-    "pages/shop-cart/shopCart",
+    "pages/shop-cart/index",
     "pages/good-detail/index",
     "pages/category/index",
-    "pages/category-list/index"
+    "pages/category-list/index",
+    "pages/search/index",
+    "pages/authorize/index",
+    "pages/order-list/index",
+    "pages/select-address/index",
+    "pages/address-add/index",
+    "pages/to-pay-order/index"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -32,7 +38,7 @@
         "text": "分类"
       },
       {
-        "pagePath": "pages/shop-cart/shopCart",
+        "pagePath": "pages/shop-cart/index",
         "iconPath": "images/tabs/cart-off.png",
         "selectedIconPath": "images/tabs/cart-on.png",
         "text": "购物车"

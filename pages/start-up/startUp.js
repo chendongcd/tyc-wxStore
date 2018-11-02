@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    remind: '', //0初始化（未授权）1授权中  2授权 
+    remind: '0', //0初始化（未授权）1授权中  2授权 
     angle: 0,
     userInfo: {}
   },
@@ -17,12 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    wx.getSystemInfoSync({
-      success: function (res) {
-        console.log(res)
-        globalData.deviceInfo = res
-      }
-    })
+
   },
 
   /**
@@ -53,6 +48,7 @@ Page({
     });
   },
   bindGetUserInfo: function (e) {
+    console.log(e)
     this.setData({
         remind: 1
       });
@@ -66,9 +62,10 @@ Page({
     if(res.code==200){
     that.setData({
       remind: 2,
-      userInfo:res.entity
+      userInfo:res
     })
-    app.globalData.userInfo = res.entity
+      wx.setStorageSync('userInfo', res)
+    app.globalData.userInfo = res
     }
   },
   login: function (encryptedData,iv,userInfo){
@@ -78,16 +75,20 @@ Page({
     })
     wx.login({
       success:function(res){
+        console.log(res)
         if(res.code){
           let param = {
             encryptedData: encryptedData,
             iv: iv,
             wxCode: res.code,
-            wxNickName:userInfo.nickName,
+            nickName:userInfo.nickName,
             wxGender:userInfo.gender,
-            url:userInfo.avatarUrl
+            avatarUrl:userInfo.avatarUrl,
+            code:200
           }
-          fetch.request('POST', 'user/login/v1.1',param,that.setUserInfo)
+        
+          that.setUserInfo(param)
+          //fetch.request('POST', 'user/login/v1.1',param,that.setUserInfo)
         }
       }
     })

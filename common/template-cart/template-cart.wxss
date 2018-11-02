@@ -1,4 +1,6 @@
-/* pages/template-cart/template-cart.wxss */
+page{
+    /*height: 100%;*/
+}
 .container{
     justify-content:initial;
 }
@@ -8,7 +10,7 @@
     text-align: center;
     font-size:28rpx;
     color:#999;
-    background: url(../../images/shop-cart/icon-cart.png) no-repeat center 205rpx;
+    background: url(https://cdn.it120.cc/images/weappshop/icon-cart.png) no-repeat center 205rpx;
     background-size: 100rpx auto;
     margin-bottom: 50rpx;
 }
@@ -56,11 +58,11 @@
     width: 870rpx;
     box-sizing: border-box;
     transition: margin-left 0.2s ease-in-out;
-    background: url(../../images/shop-cart/gou.png) no-repeat 30rpx center;
+    background: url(https://cdn.it120.cc/images/weappshop/gou.png) no-repeat 30rpx center;
     background-size: 40rpx auto; 
 }
 .a-goods-conts.active{
-    background: url(../../images/shop-cart/gou-red.png) no-repeat 30rpx center;
+    background: url(https://cdn.it120.cc/images/weappshop/gou-red.png) no-repeat 30rpx center;
     background-size: 40rpx auto; 
 }
 .goods-info{
@@ -203,11 +205,11 @@
 .jiesuan-box .all-selected{
     padding-left: 90rpx;
     color:#000000;
-    background: url(../../images/shop-cart/gou.png) no-repeat 30rpx center;
+    background: url(https://cdn.it120.cc/images/weappshop/gou.png) no-repeat 30rpx center;
     background-size: 40rpx auto; 
 }
 .jiesuan-box .all-selected.active{
-    background: url(../../images/shop-cart/gou-red.png) no-repeat 30rpx center;
+    background: url(https://cdn.it120.cc/images/weappshop/gou-red.png) no-repeat 30rpx center;
     background-size: 40rpx auto; 
 }
 .jiesuan-box .total{

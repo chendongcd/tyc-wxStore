@@ -1,6 +1,6 @@
 <!--common/template-list/index.wxml-->
 <template name="kind-list">
-<scroll-view class="scrollList">
+<scroll-view scroll-y="true" class="scrollList">
 <view class='goods' bindtap='toDetailsTap' id='{{item.productId}}' wx:for = "{{itemList}}" wx:key="{{index}}">
 <image class='good-left' src='http://img14.360buyimg.com/n9/s60x76_jfs/t16951/21/2702481527/492649/11961b8a/5b058ac1N3bdc41a3.jpg!cc_60x76.jpg'>
 </image>
