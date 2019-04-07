@@ -5,6 +5,7 @@
     "pages/me/me",
     "pages/shop-cart/index",
     "pages/good-detail/index",
+    "pages/order-details/index",
     "pages/category/index",
     "pages/category-list/index",
     "pages/search/index",
@@ -12,7 +13,10 @@
     "pages/order-list/index",
     "pages/select-address/index",
     "pages/address-add/index",
-    "pages/to-pay-order/index"
+    "pages/to-pay-order/index",
+    "pages/score-excharge/index",
+    "pages/asset/index",
+    "pages/score/index"
   ],
   "window": {
     "backgroundTextStyle": "dark",

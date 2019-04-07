@@ -1,36 +1,36 @@
 <!--pages/category/index.wxml-->
 <view class='container'>
-<view class='left'>
-<scroll-view scroll-y='true' class='type-navbar'>
-<view class='type-box' wx:for-items="{{categories}}" wx:key="id">
-<view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
-{{item.name}}
-</view>
-</view>
-</scroll-view>
-</view>
-<view class='right'>
-<view class='type-tags' wx:for-items="{{typeTag[activeCategoryId]}}" wx:key="id">
-<view class='type-tag'>
-<view class='tag-title'>
-<text class='tag-name'>
+  <view class='left'>
+    <scroll-view scroll-y='true' class='type-navbar'>
+      <view class='type-box' wx:for-items="{{categories}}" wx:key="id">
+        <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
+          {{item.name}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class='right'>
+    <view class='type-tags' wx:for-items="{{typeTag[activeCategoryId]}}" wx:key="id">
+      <view class='type-tag'>
+        <view class='tag-title'>
+          <text class='tag-name'>
 {{item.typeName}}
 </text>
-<view id='{{item.typeId}}' data-level="2" data-name='热销榜' data-types="{{item.productTypeList}}" bindtap='toList' class='tag-right'>
-<text class='tag-more'>热销榜</text>
-<image class='icon-more' src='../../images/more-on.png'></image>
-</view>
-</view>
-<view class='tag-content'>
-<view class='tag-item' wx:for-items="{{item.productTypeList}}" wx:key="index" >
-<view bindtap='toList' data-types="{{item}}" data-level="3" data-name="{{item.name}}">
-<image class='tag-itemImage' src='http://img14.360buyimg.com/n9/s60x76_jfs/t16951/21/2702481527/492649/11961b8a/5b058ac1N3bdc41a3.jpg!cc_60x76.jpg'>
-</image>
-<text class='item-name'>{{item.name}}</text>
-</view>
-</view>
-</view>
-</view>
-</view>
-</view>
+          <view id='{{item.typeId}}' data-level="2" data-name='热销榜' data-types="{{item.productTypeList}}" bindtap='toList' class='tag-right'>
+            <text class='tag-more'>热销榜</text>
+            <image class='icon-more' src='../../images/more-on.png'></image>
+          </view>
+        </view>
+        <view class='tag-content'>
+          <view class='tag-item' wx:for-items="{{item.productTypeList}}" wx:key="index">
+            <view bindtap='toList' data-types="{{item}}" data-level="3" data-name="{{item.name}}">
+              <image class='tag-itemImage' src='http://img14.360buyimg.com/n9/s60x76_jfs/t16951/21/2702481527/492649/11961b8a/5b058ac1N3bdc41a3.jpg!cc_60x76.jpg'>
+              </image>
+              <text class='item-name'>{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

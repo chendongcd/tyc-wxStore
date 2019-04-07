@@ -1,51 +1,75 @@
-<!--pages/me/me.wxml-->
 <view class="container">
-	<view class="userinfo">
-		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
-		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
-	</view>
-  <view class="my-item" style='background:none;display:flex;flex-direction:column;height:auto;'>
-    <view style='display:flex;justify-content:center;margin-top:-20rpx;'>
-      余额 {{balance}} 元， 冻结 {{freeze}} 元
+  <view class="userinfo">
+    <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+  </view>
+  <view class="asset">
+    <view class='item' bindtap='goAsset'>
+      <view>{{balance}}</view>
+      <view>可用余额</view>
     </view>
-    <view style='display:flex;padding-bottom:20rpx;justify-content:space-around;'>
-      <button type='primary' style='width:40%;' bindtap="recharge">充值</button>
-      <button type='warn' style='width:40%;' bindtap="withdraw">提现</button>
+    <view class='item right' bindtap='goScore'>
+      <view>{{score}}</view>
+      <view>剩余积分</view>
     </view>
   </view>
-  <view class="my-item" style='background:none;display:flex;'>
-    <view class='my-item-left'>当前积分 {{score}} </view>
-    <button size='mini' wx:if="{{score_sign_continuous == 0}}" style='margin-right:70rpx;height:70rpx;' bindtap="scoresign">每日签到</button>
-    <button size='mini' wx:if="{{score_sign_continuous > 0}}" disabled='true' style='margin-right:70rpx;'>已连续{{score_sign_continuous}}天签到</button>
+  <view style="height:10rpx;background: #eee;width:100%;"></view>
+  <view class="my-item">
+    <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
+  </view>
+  <view class='order-shortcut'>
+    <view class='item' bindtap='goOrder' data-type="0">
+      <image class="icon" src="/images/order/topay.png" background-size="cover"></image>
+      <view class='text'>待付款</view>
+    </view>
+    <view class='item' bindtap='goOrder' data-type="1">
+      <image class="icon" src="/images/order/fahuo.png" background-size="cover"></image>
+      <view class='text'>待发货</view>
+    </view>
+    <view class='item' bindtap='goOrder' data-type="2">
+      <image class="icon" src="/images/order/shouhuo.png" background-size="cover"></image>
+      <view class='text'>待收货</view>
+    </view>
+    <view class='item' bindtap='goOrder' data-type="3">
+      <image class="icon" src="/images/order/pj.png" background-size="cover"></image>
+      <view class='text'>待评价</view>
+    </view>
+  </view>
+  <view style="height:10rpx;background: #eee;width:100%;"></view>
+  <view class="my-item">
+    <navigator class='item-left' url="/pages/asset/index" hover-class="navigator-hover">资金明细</navigator>
   </view>
   <view class="my-item">
-    <navigator class='my-item-left' url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
-    <image mode='aspectFit' src="../../images/arrow-right.png" class="arrow-right"/>
+    <navigator class='item-left' url="/pages/sign/index" hover-class="navigator-hover">每日签到</navigator>
   </view>
   <view class="my-item">
-    <navigator class='my-item-left' url="/pages/select-address/index" hover-class="navigator-hover">我的收货地址</navigator>
-    <image mode='aspectFit' src="../../images/arrow-right.png" class="arrow-right"/>
+    <navigator class='item-left' url="/pages/score-excharge/index" hover-class="navigator-hover">积分兑换</navigator>
   </view>
-  <!-- <view class="my-item">
-    <navigator class='my-item-left' url="/pages/mycoupons/index" hover-class="navigator-hover">我的优惠券</navigator>
-    <image mode='aspectFit' src="../../images/arrow-right.png" class="arrow-right"/>
-  </view> -->
-  <view class="my-item" bindtap="aboutUs">
-    <view class='my-item-left'>关于我们</view>
-    <image mode='aspectFit' src="../../images/arrow-right.png" class="arrow-right"/>
+  <view class="my-item">
+    <navigator class='item-left' url="/pages/select-address/index" hover-class="navigator-hover">收货地址</navigator>
   </view>
-  <view wx:if="{{!userMobile}}" class="my-item" style="border:none;width:auto;display:flex;justify-content:center;">
-    <button style='margin-top:-10rpx;' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
+  <view class="my-item">
+    <navigator class='item-left' url="/pages/mycoupons/index" hover-class="navigator-hover">优惠券</navigator>
   </view>
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
-    <view wx:if="{{userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
+  <view wx:if="{{!userMobile}}"  class="button-item">
+    <button style="border:none;width:100%;text-align:left;" class='bindPhone' size='mini' plain="true" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      绑定手机号码
+    </button>
+  </view>
+  <view wx:if="{{userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
     {{userMobile}}
   </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="about" bindtap="aboutUs">
+    关于我们
+  </view>
+
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
   <view class="my-item" style="border:none;padding:0rpx;margin:0rpx;background:none;border:none;height:auto;line-height:auto;">
     <button type="warn" bindtap="relogin">重新授权登录</button>
   </view>
-  
+
   <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="version">Powered by Melon v {{version}}</view>
+  <view class="version">Powered by EastWorld v {{version}}</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
 </view>

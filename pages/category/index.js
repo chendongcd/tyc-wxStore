@@ -1,6 +1,7 @@
 // pages/category/index.js
 import {fetch} from '../../action/fetch.js'
 var app = getApp()
+
 Page({
 
   /**
@@ -41,9 +42,10 @@ Page({
   },
   setKinds:function(res){
     var that = this
-    if(res.code=='200'){
-      for (var i = 0; i < res.entity.length; i++) {
-        that.data.categories.push(res.entity[i]);
+    if(res.data.code===0){
+      const _data = res.data.data
+      for (var i = 0; i < _data.length; i++) {
+        that.data.categories.push(_data[i]);
       }
       that.getTypes(that.data.categories[0].id)
       that.setData({
@@ -51,25 +53,39 @@ Page({
         activeCategoryId: that.data.categories[0].id
       });
     }
+    // if(res.code=='200'){
+    //   for (var i = 0; i < res.entity.length; i++) {
+    //     that.data.categories.push(res.entity[i]);
+    //   }
+    //   that.getTypes(that.data.categories[0].id)
+    //   that.setData({
+    //     categories: that.data.categories,
+    //     activeCategoryId: that.data.categories[0].id
+    //   });
+    // }
   },
   getTypes: function (typeId) {
-    var that = this;
-    let params = {productTypeId: typeId, level: 2 }
-    fetch('GET', '/shop/goods/category/all', '',that.setTypes)
+    //this.setTypes()
+    // var that = this;
+    // let params = {productTypeId: typeId, level: 2 }
+    // fetch('GET', '/shop/goods/category/all', '',that.setTypes)
   },
   setTypes:function(res){
     let that = this
     let { activeCategoryId,categories,typeTag} = that.data
-    if (res.code == '200' && !typeTag[activeCategoryId]){
-      typeTag[activeCategoryId] = res.entity
-      that.setData({ typeTag: typeTag})
+    if (!typeTag[activeCategoryId]){
+      typeTag[activeCategoryId] = _typeTags
+      that.setData({ typeTag: typeTag })
     }
-    console.log(typeTag[activeCategoryId])
+    return
+    // if (res.code == '200' && !typeTag[activeCategoryId]){
+    //   typeTag[activeCategoryId] = res.entity
+    //   that.setData({ typeTag: typeTag})
+    // }
   },
   toList:function(e){
     let { typeTag, activeCategoryId} = this.data
     let { level, name,types} = e.currentTarget.dataset
-    console.log(types)
     wx.navigateTo({
       url: "/pages/category-list/index?id=" + e.currentTarget.id+"&level="+level+"&name="+name+"&types="+JSON.stringify(types)
     })

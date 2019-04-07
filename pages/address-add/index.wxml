@@ -15,11 +15,21 @@
         </view>
         <view class="row-wrap" bindtap="selectCity">
             <view class="label">选择地区</view>
-            <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
-    <view class="picker {{region[0]=='请选择'?'hui':''}}">
-      {{region[0]}}    {{region[1]}}    {{region[2]}}
-    </view>
-  </picker>
+            <picker bindchange="bindPickerProvinceChange" range="{{provinces}}">
+              <view class="picker {{selProvince=='请选择'?'hui':''}}">
+                {{selProvince}}
+              </view>
+            </picker>
+            <picker bindchange="bindPickerCityChange" range="{{citys}}">
+              <view class="picker {{selCity=='请选择'?'hui':''}}">
+                {{selCity}}
+              </view>
+            </picker>
+            <picker bindchange="bindPickerChange" range="{{districts}}">
+              <view class="picker {{selDistrict=='请选择'?'hui':''}}">
+                {{selDistrict}}
+              </view>
+            </picker>
         </view>
         <view class="addr-details">
             <view class="label">详细地址</view>

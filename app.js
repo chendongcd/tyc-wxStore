@@ -15,6 +15,25 @@ App({
     subDomain: "tz",
     mainColor:'#E76262',
     deviceInfo:{},
-    version:"0.0.1"
-  }
+    version:"0.0.1",
+    isConnected: true
+  },
+  goLoginPageTimeOut: function () {
+    if (this.navigateToLogin) {
+      return
+    }
+    this.navigateToLogin = true
+    setTimeout(function () {
+      wx.navigateTo({
+        url: "/pages/authorize/index"
+      })
+    }, 1000)
+  },
+  goStartIndexPage: function () {
+    setTimeout(function () {
+      wx.redirectTo({
+        url: "/pages/start/start"
+      })
+    }, 1000)
+  },
 })

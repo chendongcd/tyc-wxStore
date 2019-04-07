@@ -1,5 +1,6 @@
 const app = getApp()
-
+const CONFIG = require('../../config.js')
+const WXAPI = require('../../wxApi/main')
 Page({
   data: {
     balance: 0,
@@ -27,40 +28,79 @@ Page({
     this.getUserAmount();
     this.checkScoreSign();
   },
-  aboutUs: function () {
+  aboutUs: function() {
     wx.showModal({
       title: '关于我们',
       content: '有品精选',
       showCancel: false
     })
   },
-  getPhoneNumber: function (e) {
+  getPhoneNumber: function(e) {
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
-      wx.showModal({
-        title: '提示',
-        content: '无法获取手机号码',
-        showCancel: false
-      })
+      if (e.detail.errMsg !== 'getPhoneNumber:fail user deny') {
+        wx.showModal({
+          title: '提示',
+          content: '无法获取手机号码',
+          showCancel: false
+        })
+      }
       return;
     }
+    var that = this;
+    WXAPI.bindMobile({
+      token: wx.getStorageSync('token'),
+      encryptedData: e.detail.encryptedData,
+      iv: e.detail.iv
+    }).then(function (res) {
+      if (res.code == 0) {
+        wx.showToast({
+          title: '绑定成功',
+          icon: 'success',
+          duration: 2000
+        })
+        that.getUserApiInfo();
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '绑定失败',
+          showCancel: false
+        })
+      }
+    })
   },
   getUserApiInfo: function () {
     var that = this;
-
+    WXAPI.userDetail(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
+        let _data = {}
+        _data.apiUserInfoMap = res.data
+        if (res.data.base.mobile) {
+          _data.userMobile = res.data.base.mobile
+        }
+        that.setData(_data);
+      }
+    })
   },
   getUserAmount: function () {
     var that = this;
-
-
+    WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
+        that.setData({
+          balance: res.data.balance.toFixed(2),
+          freeze: res.data.freeze.toFixed(2),
+          score: res.data.score
+        });
+      }
+    })
   },
-  checkScoreSign: function () {
+  checkScoreSign: function() {
     var that = this;
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/score/today-signed',
       data: {
         token: wx.getStorageSync('token')
       },
-      success: function (res) {
+      success: function(res) {
         if (res.data.code == 0) {
           that.setData({
             score_sign_continuous: res.data.data.continuous
@@ -69,14 +109,14 @@ Page({
       }
     })
   },
-  scoresign: function () {
+  scoresign: function() {
     var that = this;
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/score/sign',
       data: {
         token: wx.getStorageSync('token')
       },
-      success: function (res) {
+      success: function(res) {
         if (res.data.code == 0) {
           that.getUserAmount();
           that.checkScoreSign();
@@ -90,19 +130,34 @@ Page({
       }
     })
   },
-  relogin: function () {
+  relogin: function() {
     wx.navigateTo({
       url: "/pages/authorize/index"
     })
   },
-  recharge: function () {
+  recharge: function() {
     wx.navigateTo({
       url: "/pages/recharge/index"
     })
   },
-  withdraw: function () {
+  withdraw: function() {
     wx.navigateTo({
       url: "/pages/withdraw/index"
+    })
+  },
+  goAsset: function() {
+    wx.navigateTo({
+      url: "/pages/asset/index"
+    })
+  },
+  goScore: function() {
+    wx.navigateTo({
+      url: "/pages/score/index"
+    })
+  },
+  goOrder: function(e) {
+    wx.navigateTo({
+      url: "/pages/order-list/index?type=" + e.currentTarget.dataset.type
     })
   }
 })
