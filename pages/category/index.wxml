@@ -2,7 +2,7 @@
 <view class='container'>
   <view class='left'>
     <scroll-view scroll-y='true' class='type-navbar'>
-      <view class='type-box' wx:for-items="{{categories}}" wx:key="id">
+      <view class='type-box' wx:for-items="{{types}}" wx:key="id">
         <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
           {{item.name}}
         </view>
@@ -10,12 +10,27 @@
     </scroll-view>
   </view>
   <view class='right'>
-    <view class='type-tags' wx:for-items="{{typeTag[activeCategoryId]}}" wx:key="id">
+    <view class='type-tags' wx:for-items="{{childTypes}}" wx:key="id">
       <view class='type-tag'>
         <view class='tag-title'>
-          <text class='tag-name'>
-{{item.typeName}}
-</text>
+          <text class='tag-name'>{{item.name}}</text>
+        </view>
+        <view class='tag-content'>
+          <view class='tag-item' wx:for-items="{{item.productTypes}}" wx:key="id">
+          <view id="{{item.id}}">
+              <image class='icon-more' src="{{item.img}}"></image>
+              <text>{{item.name}}</text>
+          </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- <view class='right'>
+    <view class='type-tags' wx:for-items="{{childTypes}}" wx:key="id">
+      <view class='type-tag'>
+        <view class='tag-title'>
+          <text class='tag-name'>{{item.name}}</text>
           <view id='{{item.typeId}}' data-level="2" data-name='热销榜' data-types="{{item.productTypeList}}" bindtap='toList' class='tag-right'>
             <text class='tag-more'>热销榜</text>
             <image class='icon-more' src='../../images/more-on.png'></image>
@@ -32,5 +47,5 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
 </view>

@@ -11,7 +11,6 @@ Page({
     activeCategoryId: 0,
     categories: [],
     typeTag: [],
-    typs:[{'typeName':'实施分类','tagNames':['T恤','背心','休闲裤','衬衫','牛仔裤','卫衣','棉衣','夹克']}]
   },
 
   /**
@@ -35,23 +34,27 @@ Page({
   },
   getKinds:function(){
     let params = {
-      level:1
+      level:0
     }
     let that = this
-    fetch('GET', '/shop/goods/category/all',params,that.setKinds)
+    fetch('GET', 'product/list_type/v1.1',params,that.setKinds)
   },
   setKinds:function(res){
-    var that = this
-    if(res.data.code===0){
-      const _data = res.data.data
-      for (var i = 0; i < _data.length; i++) {
-        that.data.categories.push(_data[i]);
-      }
-      that.getTypes(that.data.categories[0].id)
+    let that = this
+    if(res.data.code==200){
+      let types = res.data.entity
       that.setData({
-        categories: that.data.categories,
-        activeCategoryId: that.data.categories[0].id
+        types:types
       });
+      // const _data = res.data.data
+      // for (var i = 0; i < _data.length; i++) {
+      //   that.data.categories.push(_data[i]);
+      // }
+      // that.getTypes(that.data.categories[0].id)
+      // that.setData({
+      //   categories: that.data.categories,
+      //   activeCategoryId: that.data.categories[0].id
+      // });
     }
     // if(res.code=='200'){
     //   for (var i = 0; i < res.entity.length; i++) {
@@ -66,18 +69,26 @@ Page({
   },
   getTypes: function (typeId) {
     //this.setTypes()
-    // var that = this;
-    // let params = {productTypeId: typeId, level: 2 }
-    // fetch('GET', '/shop/goods/category/all', '',that.setTypes)
+    let that = this;
+    let params = {productTypeId: typeId}
+    fetch('GET', 'product/list_type/v1.1',params,that.setTypes)
   },
   setTypes:function(res){
     let that = this
-    let { activeCategoryId,categories,typeTag} = that.data
-    if (!typeTag[activeCategoryId]){
-      typeTag[activeCategoryId] = _typeTags
-      that.setData({ typeTag: typeTag })
+    if (res.data.code == '200'){
+      let entity = res.data.entity
+      that.setData({
+        childTypes:entity
+      })
+    }else{
+
     }
-    return
+    // let { activeCategoryId,categories,typeTag} = that.data
+    // if (!typeTag[activeCategoryId]){
+    //   typeTag[activeCategoryId] = _typeTags
+    //   that.setData({ typeTag: typeTag })
+    // }
+    // return
     // if (res.code == '200' && !typeTag[activeCategoryId]){
     //   typeTag[activeCategoryId] = res.entity
     //   that.setData({ typeTag: typeTag})

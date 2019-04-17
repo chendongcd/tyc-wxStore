@@ -1,5 +1,6 @@
 // pages/start-up/startUp.js
-import fetch from '../../action/fetch.js'
+import {fetch} from '../../action/fetch.js'
+import error_response from '../../action/error.js'
 //获取应用实例
 var app = getApp();
 Page({
@@ -47,6 +48,7 @@ Page({
       url: '/pages/index/index',
     });
   },
+
   bindGetUserInfo: function (e) {
     console.log(e)
     this.setData({
@@ -57,17 +59,21 @@ Page({
     }
     this.login(e.detail.encryptedData, e.detail.iv,e.detail.userInfo)
   },
+
   setUserInfo:function(res){
+    let responseUserInfo = res.data.entity
     let that = this
-    if(res.code==200){
-    that.setData({
-      remind: 2,
-      userInfo:res
-    })
-      wx.setStorageSync('userInfo', res)
-    app.globalData.userInfo = res
+    if (res.data.code && res.data.code == "200"){ //返回登录信息成功
+      that.setData({
+        remind: 2,
+        userInfo:responseUserInfo
+      })
+      wx.setStorageSync('userInfo', responseUserInfo)
+      console.log("token="+that.data.userInfo.token)
+      app.globalData.userInfo = responseUserInfo
     }
   },
+
   login: function (encryptedData,iv,userInfo){
     let that = this
     that.setData({
@@ -81,14 +87,15 @@ Page({
             encryptedData: encryptedData,
             iv: iv,
             wxCode: res.code,
-            nickName:userInfo.nickName,
+            wxNickName:userInfo.nickName,
             wxGender:userInfo.gender,
             avatarUrl:userInfo.avatarUrl,
             code:200
           }
         
-          that.setUserInfo(param)
-          //fetch.request('POST', 'user/login/v1.1',param,that.setUserInfo)
+          //that.setUserInfo(param)
+          fetch('POST', 'user/login/v1.1',param,
+          that.setUserInfo,error_response)
         }
       }
     })
