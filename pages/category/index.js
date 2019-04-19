@@ -94,6 +94,13 @@ Page({
     //   that.setData({ typeTag: typeTag})
     // }
   },
+  toProductList:function(e){
+    let typeId = e.currentTarget.id
+    wx.navigateTo({
+      url: "/pages/search/index?typeId=" + typeId,
+    })
+  },
+
   toList:function(e){
     let { typeTag, activeCategoryId} = this.data
     let { level, name,types} = e.currentTarget.dataset

@@ -3,22 +3,20 @@
 <view class="search-container" style="height:{{height}}">
   <view class="search">
     <view class="inputView">
-      <input bindinput="inputTxt" confirm-type="search" value="{{searchTxt}}" maxlength="20" class="textInput" />
-      <icon bindtap="clearTxt" wx:if="{{searchTxt}}" class="clear-content" type="clear" size="10" color="#333332" />
+      <input bindinput="inputTxt" confirm-type="search" value="{{foundKeyWord}}" maxlength="20" class="textInput" />
+      <icon bindtap="clearTxt" wx:if="{{foundKeyWord}}" class="clear-content" type="clear" size="10" color="#333332" />
     </view>
-    <view bindtap="goBack" class="cancle">
-      取消
-    </view>
+    <button class='search-btn' bindtap="toSearch">搜索</button>
   </view>
   <view class="type-navbar" scroll-x="true">
     <view id="type0" class="type-box {{activeType=='type0'?'type-item-on':'type-item'}}" bindtap="tabType">
-      全部
+      销量
     </view>
     <view id="type1" class="type-box {{activeType=='type1'?'type-item-on':'type-item'}}" bindtap="tabType">
-      商品
+      价格
     </view>
     <view id="type2" class="type-box {{activeType=='type2'?'type-item-on':'type-item'}}" bindtap="tabType">
-      店铺
+      品牌
     </view>
   </view>
   <view wx:if="{{type==0}}" class='history'>
@@ -47,6 +45,20 @@
       </block>
     </view>
   </view>
+  <view wx:if="{{goods.length>0}}" class="goods-container">
+    <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
+      <view class="img-box">
+        <image src="{{item.headImg}}" class="image" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="goods-title">{{item.productName}}</view>
+      <view style='display:flex;'>
+        <view class="goods-price">¥ {{item.sellingPrice}}</view>
+        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.sellingPrice}}</view>
+      </view>
+    </view>
+  </view>
   <template wx:if="{{type==1}}" is="kind-list" data="{{itemList}}"/>
-  <noContent content="未搜索到相关数据"/>
+  <view wx:if="{{goods.length<=0}}">
+    <noContent content="未搜索到相关数据"/>
+  </view>
 </view>

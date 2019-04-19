@@ -17,7 +17,7 @@
         </view>
         <view class='tag-content'>
           <view class='tag-item' wx:for-items="{{item.productTypes}}" wx:key="id">
-          <view id="{{item.id}}">
+          <view id="{{item.id}}" bindtap='toProductList'>
               <image class='icon-more' src="{{item.img}}"></image>
               <text>{{item.name}}</text>
           </view>
