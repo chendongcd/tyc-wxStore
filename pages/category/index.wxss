@@ -38,6 +38,7 @@
 .right{
   height: 1070rpx;
   flex: 2;
+  background-color: #ffffff;
 }
 
 .tag-right{
@@ -47,11 +48,12 @@
 .tag-title{
   flex-direction: row;
   justify-content: space-between;
-  min-height: 20rpx;
+  min-height: 40rpx;
   padding-left: 20rpx;
   padding-right: 10rpx;
   display: flex;
   overflow: hidden;
+  background-color: salmon;
 }
 .tag-name{
   font-size: 32rpx;

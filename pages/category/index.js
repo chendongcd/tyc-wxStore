@@ -46,6 +46,7 @@ Page({
       that.setData({
         types:types
       });
+      console.log(res.data.entity)
       // const _data = res.data.data
       // for (var i = 0; i < _data.length; i++) {
       //   that.data.categories.push(_data[i]);
