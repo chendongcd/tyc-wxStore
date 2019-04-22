@@ -16,36 +16,12 @@
           <text class='tag-name'>{{item.name}}</text>
         </view>
         <view class='tag-content'>
-          <view class='tag-item' wx:for-items="{{item.productTypes}}" wx:key="id">
-          <view id="{{item.id}}" bindtap='toProductList'>
-              <image class='icon-more' src="{{item.img}}"></image>
-              <text>{{item.name}}</text>
-          </view>
+          <view class='tag-item' wx:for-items="{{item.productTypes}}" wx:key="id" id="{{item.id}}" bindtap='toProductList'>
+              <image class='tag-image' src="{{item.img}}"></image>
+              <text class='tag-names'>{{item.name}}</text>
           </view>
         </view>
       </view>
     </view>
   </view>
-  <!-- <view class='right'>
-    <view class='type-tags' wx:for-items="{{childTypes}}" wx:key="id">
-      <view class='type-tag'>
-        <view class='tag-title'>
-          <text class='tag-name'>{{item.name}}</text>
-          <view id='{{item.typeId}}' data-level="2" data-name='热销榜' data-types="{{item.productTypeList}}" bindtap='toList' class='tag-right'>
-            <text class='tag-more'>热销榜</text>
-            <image class='icon-more' src='../../images/more-on.png'></image>
-          </view>
-        </view>
-        <view class='tag-content'>
-          <view class='tag-item' wx:for-items="{{item.productTypeList}}" wx:key="index">
-            <view bindtap='toList' data-types="{{item}}" data-level="3" data-name="{{item.name}}">
-              <image class='tag-itemImage' src='http://img14.360buyimg.com/n9/s60x76_jfs/t16951/21/2702481527/492649/11961b8a/5b058ac1N3bdc41a3.jpg!cc_60x76.jpg'>
-              </image>
-              <text class='item-name'>{{item.name}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view> -->
 </view>
