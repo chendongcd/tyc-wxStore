@@ -4,7 +4,8 @@ const fetch = function (method, url, params, success, fail, token){
   console.log('请求方法:',method)
   //https://api.it120.cc/tz
   wx.request({
-    url: 'http://47.105.127.126:8089/ecommerce/'+url,
+    //url: 'http://47.105.127.126:8089/ecommerce/'+url,
+    url: 'http://localhost:8089/ecommerce/' + url,
     method: method,
     data: params,
     success: function (res) {

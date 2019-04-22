@@ -164,7 +164,12 @@ Page({
     })
 
   },
-  toSearch: function () {
-    this.getGoodsList(this.data.activeCategoryId);
+
+  //跳转到商品列表页，并携带搜索条件
+  toSearch: function (e) {
+    let searchInput = this.data.searchInput
+    wx.navigateTo({
+      url: "/pages/search/index?foundKeyWord="+searchInput,
+    })
   }
 })
