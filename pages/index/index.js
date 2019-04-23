@@ -49,7 +49,7 @@ Page({
   },
   toDetailsTap: function(e) {
     wx.navigateTo({
-      url: "/pages/good-detail/index?id=" + e.currentTarget.dataset.id
+      url: "/pages/good-detail/index?productId=" + e.currentTarget.dataset.id
     })
   },
   tapBanner: function(e) {

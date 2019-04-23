@@ -36,59 +36,44 @@ Page({
     })
   },
   onLoad: function (e) {
-    console.log(e)
-    if (e.inviter_id) {
+    if (e.productId) {
       wx.setStorage({
-        key: 'inviter_id_' + e.id,
-        data: e.inviter_id
+        key: 'inviter_id_' + e.productId,
+        data: e.productId
       })
     }
     var that = this;
-    that.data.kjId = e.kjId;
+    that.data.productId = e.productId;
     console.log(e);
     // 获取购物车数据
-    wx.getStorage({
-      key: 'shopCarInfo',
-      success: function (res) {
-        that.setData({
-          shopCarInfo: res.data,
-          shopNum: res.data.shopNum
-        });
-      }
-    })
+    // wx.getStorage({
+    //   key: 'shopCarInfo',
+    //   success: function (res) {
+    //     that.setData({
+    //       shopCarInfo: res.data,
+    //       shopNum: res.data.shopNum
+    //     });
+    //   }
+    // })
     //获取商品详情
-    fetch('GET', '/shop/goods/detail', {
-      id: e.id
+    fetch('GET', 'product/details/v1.1', {
+      productId: e.productId
     }, that.setGoodDetail)
-    this.reputation(e.id);
-    this.getKanjiaInfo(e.id);
+    //this.reputation(e.id);
+    //this.getKanjiaInfo(e.id);
   },
   setGoodDetail: function (res) {
     let that = this
     var selectSizeTemp = "";
-    if (res.data.data.properties) {
-      for (var i = 0; i < res.data.data.properties.length; i++) {
-        selectSizeTemp = selectSizeTemp + " " + res.data.data.properties[i].name;
-      }
-      that.setData({
-        hasMoreSelect: true,
-        selectSize: that.data.selectSize + selectSizeTemp,
-        selectSizePrice: res.data.data.basicInfo.minPrice,
-        totalScoreToPay: res.data.data.basicInfo.minScore
-      });
-    }
-    that.data.goodsDetail = res.data.data;
-    if (res.data.data.basicInfo.videoId) {
+
+    let product = res.data.entity
+    if (product.videoId) {
       that.getVideoSrc(res.data.data.basicInfo.videoId);
     }
     that.setData({
-      goodsDetail: res.data.data,
-      selectSizePrice: res.data.data.basicInfo.minPrice,
-      totalScoreToPay: res.data.data.basicInfo.minScore,
-      buyNumMax: res.data.data.basicInfo.stores,
-      buyNumber: (res.data.data.basicInfo.stores > 0) ? 1 : 0
+      goodsDetail: product,
     });
-    WxParse.wxParse('article', 'html', res.data.data.content, that, 5);
+    WxParse.wxParse('article', 'html', product.description, that, 5);
   },
   goShopCar: function () {
     wx.reLaunch({

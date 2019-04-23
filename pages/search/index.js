@@ -8,6 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    curPage:1,
+    pageSize:20,
+    enterScroll:false,
     height: app.globalData.deviceInfo.windowHeight+'px',
     activeType:'type0',
     //foundKeyWord:"",//foundKeyWord 搜索关键字
@@ -59,25 +62,12 @@ Page({
     console.log(options)
   },
 
-  tabType:function(e){
-    this.setData({ activeType: e.target.id})
-  },
   goBack:function(){
     wx.navigateBack({
       delta: 1
     })
   },
-  inputTxt:function(e){
-    this.setData({
-      searchTxt: e.detail.value
-    })
-  },
-  clearTxt:function(){
-    this.setData({searchTxt:''})
-  },
-  clearHis:function(){
-    this.setData({ history: [] })
-  },
+  
   hotControl:function(){
     let hot = this.data.hotShow
     this.setData({ hotShow: !hot })
@@ -85,15 +75,24 @@ Page({
 
   //绑定搜索按钮
   toSearch:function(){
-
+    let that = this
+    that.setData({
+      curPage:1,
+      enterScroll: false
+    })
+    that.getProductListByQueryConditions()
   },
+
   //根据条件获取商品列表
   getProductListByQueryConditions:function(){
     let that = this
+    wx.showLoading({
+      "mask": true
+    })
     //获取查询条件
     let queryConditions = {
-      page:1,
-      pageSize:20
+      page:that.data.curPage,
+      pageSize:that.data.pageSize
     }
 
     let foundKeyWord=that.data.foundKeyWord //搜索关键字
@@ -130,8 +129,17 @@ Page({
     fetch("GET","product/list/v1.1",queryConditions,that.loadProductList)
   },
 
+  //获取输入框内容
+  inputTxt: function (e) {
+    this.setData({
+      foundKeyWord: e.detail.value
+    })
+  },
+
   //加载商品列表
   loadProductList:function(res){
+    wx.hideLoading()
+    
     let response = res.data;
     if(response.code == '200'){
       let that = this
@@ -144,6 +152,37 @@ Page({
         goods:goods,
       });
     }
-  }
+  },
 
+  //跳转到详情页
+  toDetailsTap:function(e){
+    let productId = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/good-detail/index?productId='+productId,
+    })
+  },
+
+  //下滑分页
+  onReachBottom: function () {
+    this.setData({
+      curPage: this.data.curPage + 1
+    });
+    this.setData({
+      enterScroll:true
+    })
+    this.getProductListByQueryConditions(true)
+  },
+  onPullDownRefresh: function () {
+    this.setData({
+      curPage: 1
+    });
+    this.getProductListByQueryConditions()
+    wx.stopPullDownRefresh()
+  },
+  onPageScroll(e) {
+    let scrollTop = this.data.scrollTop
+    this.setData({
+      scrollTop: e.scrollTop
+    })
+  },
 })

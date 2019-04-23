@@ -58,7 +58,10 @@
     </view>
   </view>
   <template wx:if="{{type==1}}" is="kind-list" data="{{itemList}}"/>
-  <view wx:if="{{goods.length<=0}}">
-    <noContent content="未搜索到相关数据"/>
+  <view wx:if="{{goods.length<=0 && !enterScroll}}">
+    <noContent content="未搜索到相关宝贝"/>
+  </view>
+  <view wx:if="{{goods.length<=0 && enterScroll}}">
+   没有更多啦~
   </view>
 </view>
